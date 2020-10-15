@@ -1,8 +1,8 @@
 /****************************************************************/
-/*   Author             :    AbdElrahman Ibrahim Zaki		    */
-/*	 Date 				:    20th of July 2020 					*/
-/*	 Version 			:    1.0V 							 	*/
-/*	 Description 		:   USART User Manual                        */
+/*   Author             :    AbdElrahman Ibrahim Zaki	        */
+/*   Date 		:    20th of July 2020 			*/
+/*   Version 		:    1.0V 				*/
+/*   Description 	:   USART User Manual                   */
 /****************************************************************/
 
 /* Description   : Guard to protect this File from include more than one time .  */
