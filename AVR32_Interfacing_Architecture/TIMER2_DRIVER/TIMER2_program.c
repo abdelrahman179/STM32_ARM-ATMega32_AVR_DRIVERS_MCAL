@@ -1,14 +1,15 @@
 /****************************************************************/
-/*   Author             :    AbdElrahman Ibrahim Zaki		    */
-/*	 Date 				:    10th of July 2020 					*/
-/*	 Version 			:    1.0V 							 	*/
-/*	 Description 		:    TIMER2 Program                       */
+/*   Author             :    AbdElrahman Ibrahim Zaki	        */
+/*   Date 		:    10th of July 2020 			*/
+/*   Version 		:    1.0V 				*/
+/*   Description 	:    TIMER2 Program                     */
 /****************************************************************/
 
 #include "STD_TYPES.h"
 #include "BIT_MATH.h"
-#include "TIMER2_int.h"
-#include "TIMER2_reg.h"
+
+#include "TIMER2_interface.h"
+#include "TIMER2_private.h"
 #include "TIMER2_config.h"
 
 void (*TIMER2_OV_CallBack) (void);
