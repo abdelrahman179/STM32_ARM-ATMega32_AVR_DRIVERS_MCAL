@@ -1,12 +1,12 @@
 /****************************************************************/
-/*   Author             :    AbdElrahman Ibrahim Zaki		    */
-/*	 Date 				:    5th of July 2020 					*/
-/*	 Version 			:    1.0V 							 	*/
-/*	 Description 		:    TIMER1 Register Addresses                         */
+/*   Author       :    AbdElrahman Ibrahim Zaki		               */
+/*	 Date 	     			:    5th of July 2020 			                   		*/
+/*	 Version 		   	:    1.0V 							 	                           */
+/*	 Description 		:    TIMER1 Register Addresses                */
 /****************************************************************/
 
-#ifndef TIMER1_REG_H
-#define TIMER1_REG_H
+#ifndef TIMER1_PRIVATE_H
+#define TIMER1_PRIVATE_H
  
 /* ---------------------- Timer1/Counter1 Control Register ---------------------------- */
 
