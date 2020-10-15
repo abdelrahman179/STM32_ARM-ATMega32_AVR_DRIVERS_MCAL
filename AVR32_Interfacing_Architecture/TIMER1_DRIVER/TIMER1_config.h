@@ -1,8 +1,8 @@
 /****************************************************************/
-/*   Author             :    AbdElrahman Ibrahim Zaki		    */
-/*	 Date 				:    5th of July 2020 					*/
-/*	 Version 			:    1.0V 							 	*/
-/*	 Description 		:    TIMER1 User Manual                        */
+/*   Author         :    AbdElrahman Ibrahim Zaki		*/
+/*   Date           :    5th of July 2020 			*/
+/*   Version        :    1.0V 				        */
+/*   Description    :    TIMER1 User Manual                     */
 /****************************************************************/
 
 #ifndef     TIMER1_CONFIG_H
