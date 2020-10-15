@@ -1,12 +1,12 @@
 /****************************************************************/
-/*   Author             :    AbdElrahman Ibrahim Zaki		    */
-/*	 Date 				:    5th of July 2020 					*/
-/*	 Version 			:    1.0V 							 	*/
-/*	 Description 		:    TIMER1 Interface File                        */
+/*   Author       :    AbdElrahman Ibrahim Zaki		              */
+/*	 Date 				:    5th of July 2020 				               	*/
+/*	 Version 			:    1.0V 							                     	*/
+/*	 Description 	:    TIMER1 Interface File                    */
 /****************************************************************/
 
-#ifndef TIMER1_INT_H
-#define TIMER1_INT_H
+#ifndef TIMER1_INTERFACE_H
+#define TIMER1_INTERFACE_H
 
 // TIMER1 Waveform Generation Modes
 #define TIMER1_NORMAL                                   1 
