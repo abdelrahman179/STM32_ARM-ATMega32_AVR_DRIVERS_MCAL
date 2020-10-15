@@ -1,8 +1,8 @@
 /****************************************************************/
-/*   Author             :    AbdElrahman Ibrahim Zaki		    */
-/*	 Date 				:    23rd of July 2020 					*/
-/*	 Version 			:    1.0V 							 	*/
-/*	 Description 		:  Public Accessing Mechanism Prototype */
+/*   Author       :    AbdElrahman Ibrahim Zaki		              */
+/*	 Date 				:    23rd of July 2020 			              		*/
+/*	 Version 			:    1.0V 							 	                    */
+/*	 Description  :  Public Accessing Mechanism Prototype       */
 /*                            and Sense Mode Definition         */
 /****************************************************************/
 
