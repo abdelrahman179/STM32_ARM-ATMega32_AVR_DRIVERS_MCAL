@@ -6,8 +6,8 @@
 /*                                                           */
 /*************************************************************/
 
-#ifndef DIO_REG_H
-#define DIO_REG_H
+#ifndef DIO_PRIVATE_H
+#define DIO_PRIVATE_H
 
 // insert registers names and addresses
 
