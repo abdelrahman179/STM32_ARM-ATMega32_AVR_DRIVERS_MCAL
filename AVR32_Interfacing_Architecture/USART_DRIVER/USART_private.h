@@ -1,14 +1,14 @@
 /****************************************************************/
-/*   Author             :    AbdElrahman Ibrahim Zaki		    */
-/*	 Date 				:    23rd of July 2020 					*/
-/*	 Version 			:    1.0V 							 	*/
-/*	 Description 		:     Memory mapped Registers           */
+/*   Author         :    AbdElrahman Ibrahim Zaki		            */
+/*	 Date 				  :    23rd of July 2020 				            	*/
+/*	 Version 		  	:    1.0V 							                  	*/
+/*	 Description 		:    Memory mapped Registers                */
 /****************************************************************/
 
 /* Description   : Guard to protect this File from include more than one time .  */
 
-#ifndef  USART_REG_H
-#define  USART_REG_H
+#ifndef  USART_PRIVATE_H
+#define  USART_PRIVATE_H
 
 /* UDR : I/O  Data Register*/ 
 #define   UDR          *((volatile u8 *) 0X2C)
