@@ -8,9 +8,11 @@
 #include "STD_TYPES.h"
 #include "BIT_MATH.h"
 
-#include "ADC_Config.h"
-#include "ADC_Interface.h"
-#include "ADC_Register.h"
+#include "ADC_interface.h"
+#include "ADC_private.h"
+#include "ADC_config.h"
+
+
 
 u16 dig_result;
 
