@@ -2,13 +2,14 @@
 /*   Author             :    AbdElrahman Ibrahim Zaki		    */
 /*	 Date 				:    1st of July 2020 					*/
 /*	 Version 			:    1.0V 							 	*/
-/*	 Description 		:    TIMER0 Program                        */
+/*	 Description 		:    TIMER0 Program file                */
 /****************************************************************/
 
 #include "STD_TYPES.h"
 #include "BIT_MATH.h"
-#include "TIMER0_int.h"
-#include "TIMER0_reg.h"
+
+#include "TIMER0_interface.h"
+#include "TIMER0_private.h"
 #include "TIMER0_config.h"
 
 void (*TIMER0_OV_CallBack) (void);
