@@ -1,7 +1,7 @@
 /*************************************************************/
 /*  AUTHOR     : AbdElrahman Ibrahim Zaki                    */
-/*  DATE       : 10th of June 2020											 */
-/*  VERSION	   : V0.1										 */
+/*  DATE       : 10th of June 2020			    */
+/*  VERSION	   : V0.1				    */
 /*  DESCRIPTION: DIO Program                                  */
 /*                                                           */
 /*************************************************************/
