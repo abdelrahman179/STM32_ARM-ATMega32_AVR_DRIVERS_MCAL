@@ -4,8 +4,8 @@
 /*	 Version 			:    1.0V 							                	*/
 /*	 Description 		:  External Interrupt Registers Addresses */
 /****************************************************************/
-#ifndef  EXT_REG_H
-#define  EXT_REG_H
+#ifndef  EXT_PRIVATE_H
+#define  EXT_PRIVATE_H
 
 /* General Interrupt Control Register
    setting BITs 5 > INT2 , 6 > INT0 , 7 > INT1 activates the Peripheral Interrupt  */
