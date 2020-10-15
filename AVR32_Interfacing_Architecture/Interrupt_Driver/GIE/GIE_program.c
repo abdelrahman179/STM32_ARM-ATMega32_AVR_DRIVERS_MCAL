@@ -7,8 +7,9 @@
 
 #include "STD_TYPES.h"
 #include "BIT_MATH.h"
-#include "GIE_int.h"
-#include "GIE_reg.h"
+
+#include "GIE_interface.h"
+#include "GIE_private.h"
 
 // enable and disable global interrupt through these functions
 void GIE_voidEnable(void)
