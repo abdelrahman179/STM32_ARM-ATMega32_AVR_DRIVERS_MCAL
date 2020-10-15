@@ -1,14 +1,17 @@
 /****************************************************************/
-/*   Author             :    AbdElrahman Ibrahim Zaki		    */
-/*	 Date 				:    23rd of July 2020 					*/
-/*	 Version 			:    1.0V 							 	*/
-/*	 Description 		:    USART Program                      */
+/*   Author             :    AbdElrahman Ibrahim Zaki	        */
+/*   Date 		:    23rd of July 2020 			*/
+/*   Version 		:    1.0V 				*/
+/*   Description 	:    USART Program                      */
 /****************************************************************/
 
 #include  "STD_TYPES.h"
 #include  "BIT_MATH.h"
-#include  "USART_Config.h"
-#include  "USART_Reg.h"
+
+#include  "USART_interface.h"
+#include  "USART_private.h"
+#include  "USART_config.h"
+
 
 /* Description : USART Initialization Function 
                     I/P : void
