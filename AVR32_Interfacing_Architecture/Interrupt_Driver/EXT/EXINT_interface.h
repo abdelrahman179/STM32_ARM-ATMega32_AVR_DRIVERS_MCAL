@@ -8,8 +8,8 @@
 
 // functions to be given to the user
 
-#ifndef  EXT_INT_H
-#define  EXT_INT_H
+#ifndef  EXT_INTERFACE_H
+#define  EXT_INTERFACE_H
 
 #define   EXT0               1
 #define   EXT1               2
