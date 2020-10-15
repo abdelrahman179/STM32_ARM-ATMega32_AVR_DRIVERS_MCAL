@@ -1,12 +1,12 @@
 /****************************************************************/
-/*   Author             :    AbdElrahman Ibrahim Zaki		    */
-/*	 Date 				:    1st of July 2020 					*/
-/*	 Version 			:    1.0V 							 	*/
-/*	 Description 		:    TIMER0 Registers Addresses              */
+/*   Author       :    AbdElrahman Ibrahim Zaki		              */
+/*	 Date 				:    1st of July 2020 				              	*/
+/*	 Version 			:    1.0V 							                     	*/
+/*	 Description  :    TIMER0 Registers Addresses               */
 /****************************************************************/
 
-#ifndef TIMER0_REG_H
-#define TIMER0_REG_H
+#ifndef TIMER0_PRIVATE_H
+#define TIMER0_PRIVATE_H
 
 /* Timer/Counter Control Register */
 #define  TCCR0     *((volatile u8 *) 0X53)
