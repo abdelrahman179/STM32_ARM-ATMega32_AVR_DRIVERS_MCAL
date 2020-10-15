@@ -5,8 +5,8 @@
 /*	 Description 	:    Registers addresses                      */
 /****************************************************************/
 
-#ifndef  ADC_REG_H
-#define  ADC_REG_H
+#ifndef  ADC_PRIVATE_H
+#define  ADC_PRIVATE_H
 
 
 // Multiplexing Register
