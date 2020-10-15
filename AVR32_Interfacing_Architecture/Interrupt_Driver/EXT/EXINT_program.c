@@ -7,9 +7,11 @@
 
 #include "STD_TYPES.h"
 #include "BIT_MATH.h"
-#include "EXT_INT_int.h"
-#include "INT_Config.h"
-#include "EXT_INT_reg.h"
+
+#include "EXINT_interface.h"
+#include "EXINT_private.h"
+#include "EXINT_config.h"
+
 
 
 #define NULL (void *)0
