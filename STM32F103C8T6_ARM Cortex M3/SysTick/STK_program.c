@@ -23,14 +23,16 @@ void MSTK_voidInit(void)  // AHB or AHB/8
 {
     #if   (STK_CLOCK_SRC == AHB_CLK_SRC)
           SET_BIT(MSTK_Ptr -> STK_CTRL , STK_CLOCK_SRC);
+		  /* Set the Global variable exact CLK SRC value */
 		  Global_u32CLK = STK_AHB_CLK;
 
     #elif (STK_CLOCK_SRC == AHB_CLK_SRC_Div_8)
 		  CLR_BIT (MSTK_Ptr -> STK_CTRL , STK_CLOCK_SRC);
+		  /* Set the Global variable exact CLK SRC value */
 		  Global_u32CLK = STK_AHB_CLK / 8;
 	
 	#else 
-		#error (" configuration error")
+		#error "Invalid SysTick Configuration error"
 	#endif 
 }  
 
@@ -41,17 +43,15 @@ void MSTK_voidSetBusyWait(u32 Copy_u32Time , STK_Time Copy_Time_unit)
     u32 Local_u32Load = 0;
     MSTK_Ptr -> STK_VAL = 0;
 
-    /* Calculate and load the load register */
+    /* Calculate and load the Load Register */
     switch (Copy_Time_unit)
     {
+		/* Set time based on the system CLK SRC Value */
         case TIME_mS : Local_u32Load = Copy_u32Time * (Global_u32CLK / 1000);
-                       MSTK_Ptr -> STK_LOAD = Local_u32Load;                 
-                       break;
+                       MSTK_Ptr -> STK_LOAD = Local_u32Load;         break;
         case TIME_uS : Local_u32Load = Copy_u32Time * (Global_u32CLK / 1000000) ;
-			           MSTK_Ptr -> STK_LOAD = Local_u32Load;
-			           break; 
-		default :      
-                       break; 
+			           MSTK_Ptr -> STK_LOAD = Local_u32Load;		 break; 
+		default :      												 break; 
     }
 
     /* Start SysTick Timer */
@@ -76,14 +76,11 @@ void MSTK_voidSetIntervalPeriodic(u32 Copy_u32Time , STK_Time Copy_Time_unit , v
 	switch (Copy_Time_unit)
     {
 		case TIME_mS : Local_u32Load = Copy_u32Time * (Global_u32CLK / 1000);
-			           MSTK_Ptr -> STK_LOAD = Local_u32Load;
-			           break;
+			           MSTK_Ptr -> STK_LOAD = Local_u32Load;   break;
 			
 		case TIME_uS : Local_u32Load = Copy_u32Time * (Global_u32CLK / 1000000);
-			           MSTK_Ptr -> STK_LOAD = Local_u32Load;
-			           break; 
-		default :          
-                       break;
+			           MSTK_Ptr -> STK_LOAD = Local_u32Load;   break; 
+		default :          									   break;
 	}
 	/* Pass the function to ISR */
 	MSTK_Callback = Copy_Func;
@@ -118,6 +115,7 @@ void MSTK_voidResumeTimer(void)
 /* To get number of counts already been counted */
 u32 MSTK_u32GetElapsedTime(STK_Time Copy_Time_unit)
 {
+	/* Num of counts give - Num of counts consumed */
 	u32 Local_u32Value =  (MSTK_Ptr -> STK_LOAD) - (MSTK_Ptr -> STK_VAL);
 	u32 Local_u32ElapsedTime = 0;
 	/* Calculate the elabsed time in ms or us */
@@ -125,11 +123,9 @@ u32 MSTK_u32GetElapsedTime(STK_Time Copy_Time_unit)
     {
 		case TIME_mS : Local_u32ElapsedTime = Local_u32Value / (Global_u32CLK / 1000);
 			           break;
-			
 		case TIME_uS : Local_u32ElapsedTime = Local_u32Value / (Global_u32CLK / 1000000);
 			           break; 
-		default :    
-                       break;
+		default :      break;
 	}
 	return Local_u32ElapsedTime;
 }
@@ -144,11 +140,9 @@ u32 MSTK_u32GetRemainingTime(STK_Time Copy_Time_unit)
     {
 		case TIME_mS : Local_u32RemainingTime = Local_u32Value / (Global_u32CLK / 1000);
 			            break;
-			
 		case TIME_uS : Local_u32RemainingTime = Local_u32Value / (Global_u32CLK / 1000000);
 			            break; 
-		default :         
-                        break;
+		default :       break;
 	}
 	return Local_u32RemainingTime ;
 }
