@@ -6,16 +6,8 @@
 /*******************************************************************************/
 
 
-#ifndef EXTI_CONFIG_H
-#define EXTI_CONFIG_H
-
-/*  Range : LINE0 - LINE15   */
-#define EXTI_LINE    LINE0   
-
-/*  Range : - RISING_EDGE
-            - FALLING_EDGE
-            - ON_CHANGE   */
-#define EXTI_MODE    FALLING_EDGE      
+#ifndef _EXTI_CONFIG_H_
+#define _EXTI_CONFIG_H_
 
 
 
