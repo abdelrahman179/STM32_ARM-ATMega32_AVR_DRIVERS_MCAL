@@ -1,7 +1,7 @@
 /********************************************************************/
 /* Author : AbdElrahman I.Zaki                                      */
 /* Date   : 19 August 2020                                          */
-/* Version: V01                                                     */
+/* Version: V02                                                     */
 /* Desc.  : STM32F103C8T6 ARM Cortex M3 NVIC Program                */
 /********************************************************************/
 
@@ -14,112 +14,71 @@
 #include "NVIC_config.h"
 
 
-void MNVIC_voidEnableInterrupt(u8 Copy_u8IntNum)
+/* Enable Peripheral Interrupt through "ISERx Reg" of NVIC */
+void MNVIC_voidEnablePeripheral(u8 Copy_u8IntId)
 {
-    if(Copy_u8IntNum <= 31)
-    {
-        /* Since writing zero on the NVIC_ISER0 has no effect we can use the below line istead of SET_BIT to save processing cycles */
-        NVIC_ISER0 = (1 << Copy_u8IntNum);
-        // SET_BIT(NVIC_ISER0 , Copy_u8IntNum);
-    }
-    else if(Copy_u8IntNum <= 59)
-    {
-        /* As the ISER1 starts bits starts from 0 - 31 but the interrupt counting from 32 */
-        Copy_u8IntNum -= 32; 
-        NVIC_ISER1 = (1 << Copy_u8IntNum);
-        // SET_BIT(NVIC_ISER1 , Copy_u8IntNum);
-    }
-    else
-    {
-         /* Return Error */
-    }
+    MNVIC_Ptr -> ISER [Copy_u8IntId / 32] = 1 << ( Copy_u8IntId % 32);
 }
 
 
-void MNVIC_voidDisableInterrupt(u8 Copy_u8IntNum)
+/* Disable Perihperal Interrupt through "ICERx Reg" of NVIC */
+void MNVIC_voidDisablePeripheral(u8 Copy_u8IntId)
 {
-    if(Copy_u8IntNum <= 31)
-    {
-        /* Since writing zero on the NVIC_ICER0 has no effect we can use the below line istead of SET_BIT to save processing cycles */
-        NVIC_ICER0 = (1 << Copy_u8IntNum);
-        // SET_BIT(NVIC_ICER0 , Copy_u8IntNum);
-    }
-    else if(Copy_u8IntNum <= 59)
-    {
-        /* As the ICER1 starts bits starts from 0 - 31 but the interrupt counting from 32 */
-        Copy_u8IntNum -= 32; 
-        NVIC_ICER1 = (1 << Copy_u8IntNum);
-        // SET_BIT(NVIC_ICER1 , Copy_u8IntNum);
-    }
-    else
-    {
-         /* Return Error */
-    }
+    MNVIC_Ptr -> ICER [Copy_u8IntId / 32] = 1 << (Copy_u8IntId % 32);
 }
 
-void MNVIC_voidSetPendingFlag(u8 Copy_u8IntNum)
+/*  Set Peripheral Pending Flag through "ISPRx Reg"  of NVIC */
+void MNVIC_voidSetPendingFlag(u8 Copy_u8IntId)
 {
-    if(Copy_u8IntNum <= 31)
-    {
-        /* Since writing zero on the NVIC_ISPR0 has no effect we can use the below line istead of SET_BIT to save processing cycles */
-        NVIC_ISPR0 = (1 << Copy_u8IntNum);
-        // SET_BIT(NVIC_ISPR0 , Copy_u8IntNum);
-    }
-    else if(Copy_u8IntNum <= 59)
-    {
-        /* As the ISPR1 starts bits starts from 0 - 31 but the interrupt counting from 32 */
-        Copy_u8IntNum -= 32; 
-        NVIC_ISPR1 = (1 << Copy_u8IntNum);
-        // SET_BIT(NVIC_ISPR1 , Copy_u8IntNum);
-    }
-    else
-    {
-         /* Return Error */
-    }
+    MNVIC_Ptr -> ISPR [Copy_u8IntId / 32] = 1 << (Copy_u8IntId % 32);
 }
 
-void MNVIC_voidClearPendingFlag(u8 Copy_u8IntNum)
+/* Clear Peripheral Pending Flag through "ICPRx Reg" of NVIC */
+void MNVIC_voidClearPendingFlag(u8 Copy_u8IntId)
 {
-    if(Copy_u8IntNum <= 31)
-    {
-        /* Since writing zero on the NVIC_ICPR0 has no effect we can use the below line istead of SET_BIT to save processing cycles */
-        NVIC_ICPR0 = (1 << Copy_u8IntNum);
-        // SET_BIT(NVIC_ICPR0 , Copy_u8IntNum);
-    }
-    else if(Copy_u8IntNum <= 59)
-    {
-        /* As the ICPR1 starts bits starts from 0 - 31 but the interrupt counting from 32 */
-        Copy_u8IntNum -= 32;  
-        NVIC_ICPR1 = (1 << Copy_u8IntNum);
-        // SET_BIT(NVIC_ICPR1 , Copy_u8IntNum);
-    }
-    else
-    {
-         /* Return Error */
-    }
+    MNVIC_Ptr -> ICPR [Copy_u8IntId / 32] = 1 << (Copy_u8IntId % 32);
+}
+
+/* Read Active Flag Status of a Peripheral through "IABRx Reg" of NVIC */
+u8 MNVIC_u8GetActiveFlag(u8 Copy_u8IntId)
+{
+    u8 LOC_u8Active = GET_BIT( (MNVIC_Ptr -> IAPR [Copy_u8IntId/32]) , (Copy_u8IntId % 32));
+	return LOC_u8Active;
+
 }
 
 
-u8 MNVIC_u8GetActiveFlag(u8 Copy_u8IntNum)
+/* Copy_s8PerIntID => Peripheral_ID || Copy_u8GroupPri => Setting group priority || Copy_u8SubPri => Setting sub-group priority
+   MNVIC_GROUP_SUB_DISTRIBUTION => Distribution of groups/sub groups in IPR Register already predefined by user */
+void MNVIC_voicSWSetPriority(s8 Copy_u8IntId , u8 Copy_u8GroupPri , u8 Copy_u8SubPri , u32 Copy_u32Group)
 {
-    u8 Local_u8Result;
-    if(Copy_u8IntNum <= 31)
+    u8 Local_u8Priority = Copy_u8SubPri | Copy_u8GroupPri << ((Copy_u32Group - 0x05FA0300) / 256);
+	//Core Peripheral
+	if(Copy_u8IntId < 0)
     {
-        Local_u8Result = GET_BIT(NVIC_IABR0 , Copy_u8IntNum);
-    }
-    else if(Copy_u8IntNum <= 59)
+		if(Copy_u8IntId == MEMORY_MANAGE || Copy_u8IntId == BUS_FAULT || Copy_u8IntId == USAGE_FAULT)
+        {
+			Copy_u8IntId += 3;
+			MSCB_Ptr -> SHPR1 = (Local_u8Priority) << ((8 * Copy_u8IntId) + 4);
+		}
+		else if ( Copy_u8IntId == SV_CALL )
+        {
+			Copy_u8IntId += 7;
+			MSCB_Ptr -> SHPR2 = (Local_u8Priority) << ((8 * Copy_u8IntId) + 4);
+		}
+		else if (Copy_u8IntId == PEND_SV || Copy_u8IntId == SYSTICK )
+        {
+			Copy_u8IntId += 8;
+			MSCB_Ptr -> SHPR3 = (Local_u8Priority) << ((8 * Copy_u8IntId) + 4);
+		}
+	}
+    //External Peripheral
+	else if (Copy_u8IntId >= 0)
     {
-        /* As the IABR1 starts bits starts from 0 - 31 but the interrupt counting from 32 */
-        Copy_u8IntNum -= 32;  
-        Local_u8Result = GET_BIT(NVIC_IABR1 , Copy_u8IntNum);
-    }
-    else
-    {
-         /* Return Error */
-    }
+		MNVIC_Ptr -> IPR [Copy_u8IntId] = Local_u8Priority << 4;
+	}
 
-    return Local_u8Result;
+	MSCB_Ptr -> AIRCR = Copy_u32Group ;
+
 }
-
-
 
