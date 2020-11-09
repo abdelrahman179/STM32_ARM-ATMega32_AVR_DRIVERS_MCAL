@@ -37,22 +37,15 @@ void MSTK_voidInit(void)  // AHB or AHB/8
 }  
 
 /* Synchronous function to stop the processor from 
-    doing anything untill the timer finish counting "Polling" */
-void MSTK_voidSetBusyWait(u32 Copy_u32Time , STK_Time Copy_Time_unit)
+    doing anything untill the timer finish counting "Polling" 
+	i/p : time in uSec */
+void MSTK_voidSetBusyWait(u32 Copy_u32Time)
 {
-    u32 Local_u32Load = 0;
+	/* Reset Timer */
     MSTK_Ptr -> STK_VAL = 0;
 
-    /* Calculate and load the Load Register */
-    switch (Copy_Time_unit)
-    {
-		/* Set time based on the system CLK SRC Value */
-        case TIME_mS : Local_u32Load = Copy_u32Time * (Global_u32CLK / 1000);
-                       MSTK_Ptr -> STK_LOAD = Local_u32Load;         break;
-        case TIME_uS : Local_u32Load = Copy_u32Time * (Global_u32CLK / 1000000) ;
-			           MSTK_Ptr -> STK_LOAD = Local_u32Load;		 break; 
-		default :      												 break; 
-    }
+	/* Set Load Register */
+    MSTK_Ptr -> STK_LOAD = Copy_u32Time;      
 
     /* Start SysTick Timer */
     SET_BIT(MSTK_Ptr -> STK_CTRL, STK_CTRL_ENABLE);
@@ -68,20 +61,14 @@ void MSTK_voidSetBusyWait(u32 Copy_u32Time , STK_Time Copy_Time_unit)
 
         /* Asynchronous function to let the timer start counting and 
              fire an interrupt and keep repeating "el le3b f el ISR" */
-void MSTK_voidSetIntervalPeriodic(u32 Copy_u32Time , STK_Time Copy_Time_unit , void (*Copy_Func)(void))
+void MSTK_voidSetIntervalPeriodic(u32 Copy_u32Time , void (*Copy_Func)(void))
 {
-	u32 Local_u32Load = 0;
+	/* Reset Timer */
 	MSTK_Ptr -> STK_VAL = 0;
-	/* Calculate and load the load value */
-	switch (Copy_Time_unit)
-    {
-		case TIME_mS : Local_u32Load = Copy_u32Time * (Global_u32CLK / 1000);
-			           MSTK_Ptr -> STK_LOAD = Local_u32Load;   break;
-			
-		case TIME_uS : Local_u32Load = Copy_u32Time * (Global_u32CLK / 1000000);
-			           MSTK_Ptr -> STK_LOAD = Local_u32Load;   break; 
-		default :          									   break;
-	}
+
+	/* Set Load Register */
+    MSTK_Ptr -> STK_LOAD = Copy_u32Time;  
+	 								
 	/* Pass the function to ISR */
 	MSTK_Callback = Copy_Func;
 	
@@ -113,37 +100,19 @@ void MSTK_voidResumeTimer(void)
 }
 
 /* To get number of counts already been counted */
-u32 MSTK_u32GetElapsedTime(STK_Time Copy_Time_unit)
+u32 MSTK_u32GetElapsedTime()
 {
 	/* Num of counts give - Num of counts consumed */
-	u32 Local_u32Value =  (MSTK_Ptr -> STK_LOAD) - (MSTK_Ptr -> STK_VAL);
-	u32 Local_u32ElapsedTime = 0;
-	/* Calculate the elabsed time in ms or us */
-	switch (Copy_Time_unit)
-    {
-		case TIME_mS : Local_u32ElapsedTime = Local_u32Value / (Global_u32CLK / 1000);
-			           break;
-		case TIME_uS : Local_u32ElapsedTime = Local_u32Value / (Global_u32CLK / 1000000);
-			           break; 
-		default :      break;
-	}
+	u32 Local_u32ElapsedTime =  (MSTK_Ptr -> STK_LOAD) - (MSTK_Ptr -> STK_VAL);
+
 	return Local_u32ElapsedTime;
 }
 
 /* To get the remaining counts prior the interrupt */
-u32 MSTK_u32GetRemainingTime(STK_Time Copy_Time_unit)
+u32 MSTK_u32GetRemainingTime()
 {
-	u32 Local_u32Value = MSTK_Ptr -> STK_VAL;
-	u32 Local_u32RemainingTime = 0;
-	/* Calculate remaining time in ms or us */
-	switch (Copy_Time_unit)
-    {
-		case TIME_mS : Local_u32RemainingTime = Local_u32Value / (Global_u32CLK / 1000);
-			            break;
-		case TIME_uS : Local_u32RemainingTime = Local_u32Value / (Global_u32CLK / 1000000);
-			            break; 
-		default :       break;
-	}
+	u32 Local_u32RemainingTime = MSTK_Ptr -> STK_VAL;
+
 	return Local_u32RemainingTime ;
 }
 
