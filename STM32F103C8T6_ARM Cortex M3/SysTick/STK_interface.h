@@ -1,7 +1,7 @@
 /*******************************************************************************/
 /* Author : AbdElrahman I.Zaki                                                 */
 /* Date   : 26 August 2020                                                     */
-/* Version: V01                                                                */
+/* Version: V02                                                                */
 /* Desc.  : STM32F103C8T6 ARM Cortex M3 Systick Prototypes of Public Functions */
 /*******************************************************************************/
 
@@ -22,6 +22,8 @@
 #define STK_CTRL_TICKINT      1
 #define STK_CTRL_CLKSOURCE    2
 #define STK_CTRL_COUNTFLAG    16
+#define STK_INT_EN            1
+#define STK_INT_DIS           0
 
 /*------------------------------ Functions Prototype ------------------------------*/
 
@@ -29,6 +31,8 @@
     disable systick interrupt, systick itself */
 void MSTK_voidInit(void);  // AHB or AHB/8
 
+/* Set and start the timer on a specific i/p time */
+void MSTK_voidStart(u32 Copy_PreloadVal);
 
 /* Synchronous function to stop the processor from 
     doing anything untill the timer finish counting "Polling" 
@@ -56,6 +60,14 @@ u32 MSTK_u32GetElapsedTime();
 
 /* Return counts in value register */
 u32 MSTK_u32GetRemainingTime();
+
+/* Disable and enable Systick interrupt */
+void MSTK_voidIntStatus(u8 Copy_u8Status);
+
+/* Read Systick flag */
+u8 MSTK_u8ReadFlag(void);
+
+void MSTK_voidSetCallBack(void(*ptr)(void));
 
 
 
