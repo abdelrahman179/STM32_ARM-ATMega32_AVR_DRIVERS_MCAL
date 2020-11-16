@@ -1,7 +1,7 @@
 /**********************************************************************************/
 /* Author : AbdElrahman I.Zaki                                                    */
 /* Date   : 26 August 2020                                                        */
-/* Version: V01                                                                   */
+/* Version: V02                                                                   */
 /* Desc.  : STM32F103C8T6 ARM Cortex M3 Systick program                           */
 /**********************************************************************************/
 
@@ -16,6 +16,12 @@ u32 Global_u32CLK = 0;
 
 /* Global variable pointer to function */
 static void (*MSTK_Callback) (void);   
+
+void MSTK_voidSetCallBack(void(*ptr)(void))
+{
+	MSTK_Callback = ptr;
+}
+
 
 /* Configure Clock Type from configuration file 
     disable systick interrupt, systick itself */
@@ -35,6 +41,20 @@ void MSTK_voidInit(void)  // AHB or AHB/8
 		#error "Invalid SysTick Configuration error"
 	#endif 
 }  
+
+/* Set and start the timer on a specific i/p time */
+void MSTK_voidStart(u32 Copy_PreloadVal)
+{
+	/* Clear Value Register */
+	MSTK_Ptr -> STK_VAL = 0;
+
+	/* Set timer on input preload value */
+	MSTK_Ptr -> STK_LOAD = Copy_PreloadVal - 1;
+
+	/* Start Timer */
+	SET_BIT(MSTK_Ptr -> STK_CTRL , STK_CTRL_ENABLE);
+}
+
 
 /* Synchronous function to stop the processor from 
     doing anything untill the timer finish counting "Polling" 
@@ -79,6 +99,13 @@ void MSTK_voidSetIntervalPeriodic(u32 Copy_u32Time , void (*Copy_Func)(void))
 	SET_BIT(MSTK_Ptr -> STK_CTRL , STK_CTRL_TICKINT);
 }
 
+/* Disable and enable Systick interrupt */
+void MSTK_voidIntStatus(u8 Copy_u8Status)
+{
+	 MSTK_Ptr -> STK_CTRL &= ~( 1 << 1 );
+	 MSTK_Ptr -> STK_CTRL |=  ( Copy_u8Status << 1 );
+
+}
 
 /* Function that stop timer counting down "Only for Asynchronous functions" */
 void MSTK_voidStopTimer(void)
@@ -116,6 +143,11 @@ u32 MSTK_u32GetRemainingTime()
 	return Local_u32RemainingTime ;
 }
 
+/* Read Systick flag */
+u8 MSTK_u8ReadFlag(void)
+{
+	return (GET_BIT(MSTK_Ptr -> STK_CTRL , 16));
+}
 
 /* Called by HW */
 void SysTick_Handler(void)
