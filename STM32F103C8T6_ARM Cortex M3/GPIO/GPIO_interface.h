@@ -100,7 +100,7 @@ void MGPIO_voidSetPortMode(GPIO_Port_ID Copy_PORT , u8 Copy_u8MODE);
 void MGPIO_VoidSetPortDirection(GPIO_Port_ID Copy_PORT , u8 Copy_u8Position , u8 Copy_u8MODE);
 
 /* ----- Function that Set value of all port pins ----- */
-void MGPIO_voidSetPortValue(GPIO_Port_ID Copy_PORT , u16 Copy_u16Value);
+void MGPIO_voidSetPortValue(GPIO_Port_ID Copy_PORT , u8 Copy_u8Value);
 
 /* ----- Function that get value of all port pins ----- */
 u16 MGPIO_u16GetPortValue(GPIO_Port_ID Copy_PORT , u8 Copy_u8Position );
