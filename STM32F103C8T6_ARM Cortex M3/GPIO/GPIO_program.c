@@ -1,7 +1,7 @@
 /*********************************************************/
 /* Author : AbdElrahman I.Zaki                           */
 /* Date   : 10 August 2020                               */
-/* Version: V02                                          */
+/* Version: V03                                          */
 /* Desc.  : STM32F103C8T6 ARM Cortex M3 GPIO program     */
 /*********************************************************/
 
@@ -234,19 +234,15 @@ void MGPIO_VoidSetPortDirection(GPIO_Port_ID Copy_PORT , u8 Copy_u8Position , u8
 }
 
     /* ----- Function that Set value of all port pins ----- */
-void MGPIO_voidSetPortValue(GPIO_Port_ID Copy_PORT , u16 Copy_u16Value)
+void MGPIO_voidSetPortValue(GPIO_Port_ID Copy_PORT , u8 Copy_u8Value)
 {
-	switch (Copy_PORT) 
-    {
-		case GPIOA :
-			MGPIOA -> ODR = Copy_u16Value;     break;
-		case GPIOB :
-			MGPIOB -> ODR = Copy_u16Value;     break;
-		case GPIOC : 
-			MGPIOC -> ODR = Copy_u16Value;     break;
-		default    :                           break;
-	}
+	for (GPIO_Pin_No PIIN_S = PIN0 ; PIIN_S <= PIN15 ; PIIN_S ++)
+	    {
+			MGPIO_voidSetPinValue(Copy_PORT , PIIN_S , Copy_u8Value);
+		}
+
 }
+
 
 /* ----- Function that get value of all port pins ----- */
 u16 MGPIO_u16GetPortValue(GPIO_Port_ID Copy_PORT , u8 Copy_u8Position )
