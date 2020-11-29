@@ -13,12 +13,20 @@
 #define USART1_DISABLE          0
 #define USART1_ENABLE           1
 
+#define BAUD_9600               0
+#define BAUD_115200             1
+
 #define _8BIT_WORD_LENGTH       0
 #define _9BIT_WORD_LENGTH       1
 
 #define PARITY_DISABLE          0
-#define EVEN_PARITY             1
-#define ODD_PARITY              2
+#define PARITY_ENABLE           1
+
+#define USART1_PARITY_EVEN      0
+#define USART1_PARITY_ODD       1
+
+#define USART_PE_DISABLED       0
+#define USART_PE_ENABLED        1
 
 #define INT_DISABLE             0
 #define TXE_INT_ENABLE          1       /* Transmit Data Register is empty */
@@ -37,22 +45,16 @@
 #define ONE_AND_HALF_STOP_BIT   3
 
 /* Initialize USART */
-void MUSART_voidInit(void);
+void MUSART1_voidInit(void);
 
-/* USART_1 Send Character Synchronous */
-void MUSART1_voidSendCharSync(u8 Copy_u8Char);
+/* USART_1 Transmit a word
+    i/p:  Array of Characters */
+void MUSART1_voidTransmit(char* Word);
 
-/* USART_1 Send String Synchronous */
-void MUSART1_voidSendStringSynch(u8 * Copy_ptrString);
-
-/* USART_1 Receive Character Synchronous */
-u8   MUSART1_u8RecCharSynch(void);
-
-/* USART_1 Receive String Synchronous */
-u8 * MUSART1_PtrReadStringSynch(void);
-
-/* USART_1 Call back on Transmittion/Receiving */
-void MUSART1_voidSetCallBack(void (*ptr) (void));
+/* USART_1 Receive Data
+    i/p: Threshold value not to wait the sender infinite time to send the data 
+    o/p: The received data from the sender */
+u8 MUSART1_u8Receive(u32 Copy_u32TimeOut);
 
 
 
