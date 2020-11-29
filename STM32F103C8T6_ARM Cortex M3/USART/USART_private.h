@@ -11,6 +11,7 @@
 #define USART_PRIVATE_H
 
 
+
 typedef struct 
 {
     volatile u32 USART_SR;      /* Status Register */
@@ -25,13 +26,7 @@ typedef struct
 
 #define USART1_Ptr  ((volatile USART_Type*) 0x40013800)
 
-#define USART2_Ptr  ((volatile USART_Type*) 0x40004400)
 
-#define USART3_Ptr  ((volatile USART_Type*) 0x40004800)
-
-#define USART4_Ptr  ((volatile USART_Type*) 0x40004C00)
-
-#define USART5_Ptr  ((volatile USART_Type*) 0x40005000)
 
 
 
