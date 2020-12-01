@@ -1,7 +1,7 @@
 /*********************************************************/
 /* Author : AbdElrahman I.Zaki                           */
 /* Date   : 10 August 2020                               */
-/* Version: V03                                          */
+/* Version: V02                                          */
 /* Desc.  : STM32F103C8T6 ARM Cortex M3 GPIO program     */
 /*********************************************************/
 
@@ -205,7 +205,7 @@ void MGPIO_voidSetPortMode(GPIO_Port_ID Copy_PORT , u8 Copy_u8MODE)
 }
 
         /* ----- Function that Set direction of all port pins ----- */
-void MGPIO_VoidSetPortDirection(GPIO_Port_ID Copy_PORT , u8 Copy_u8Position , u8 Copy_u8MODE)
+void MGPIO_voidSetPortDirection(GPIO_Port_ID Copy_PORT , u8 Copy_u8Position , u8 Copy_u8MODE)
 {
 
 	switch(Copy_PORT)
@@ -233,15 +233,37 @@ void MGPIO_VoidSetPortDirection(GPIO_Port_ID Copy_PORT , u8 Copy_u8Position , u8
 	}
 }
 
+void MGPIO_voidSetPortValue(GPIO_Port_ID Copy_u8Port , u8 Copy_u8Position , u16 Copy_u8Value)
+{
+	switch( Copy_u8Port )
+	{
+	case GPIOA:
+
+		if      ( Copy_u8Position == LOW  ){ MGPIOA->ODR = (MGPIOA->ODR & 0xFF00 ) | ( (u8)Copy_u8Value ) ; }
+		else if ( Copy_u8Position == HIGH ){ MGPIOA->ODR = (MGPIOA->ODR & 0x00FF ) | (     Copy_u8Value ) ; }
+		break;
+
+	case GPIOB:
+		if      ( Copy_u8Position == LOW  ){ MGPIOB->ODR = (MGPIOB->ODR & 0xFF00 ) | ( (u8)Copy_u8Value ) ; }
+		else if ( Copy_u8Position == HIGH ){ MGPIOB->ODR = (MGPIOB->ODR & 0x00FF ) | (     Copy_u8Value ) ; }
+		break;
+
+	case GPIOC:
+		if      ( Copy_u8Position == LOW  ){ MGPIOC->ODR = (MGPIOC->ODR & 0xFF00 ) | ( (u8)Copy_u8Value ) ; }
+		else if ( Copy_u8Position == HIGH ){ MGPIOC->ODR = (MGPIOC->ODR & 0x00FF ) | (     Copy_u8Value ) ; }
+		break;
+	}
+}
+
     /* ----- Function that Set value of all port pins ----- */
-void MGPIO_voidSetPortValue(GPIO_Port_ID Copy_PORT , u8 Copy_u8Value)
+/*void MGPIO_voidSetPortValue(GPIO_Port_ID Copy_PORT , u8 Copy_u8Value)
 {
 	for (GPIO_Pin_No PIIN_S = PIN0 ; PIIN_S <= PIN15 ; PIIN_S ++)
 	    {
 			MGPIO_voidSetPinValue(Copy_PORT , PIIN_S , Copy_u8Value);
 		}
 
-}
+}*/
 
 
 /* ----- Function that get value of all port pins ----- */
