@@ -15,7 +15,9 @@
 #include "DAC_config.h"
 
 /* Song array */
-#include "SONG.h"
+#include "file.h"
+
+
 
 
 /* Make sure to make the array const to be save in flash not the 
@@ -26,11 +28,11 @@ volatile u32 Song_Counter = 0;
 void DAC_CALLBACK(void)
 {
     /* Every 125uS insert one array element in the DR register */
-	MGPIO_voidSetPortValue(DAC_PORT, DAC_PORT_LH, Song_Array[Song_Counter]);
+	MGPIO_voidSetPortValue(DAC_PORT, DAC_PORT_LH, CAS_raw[Song_Counter]);
     /* Play a new sample */
 	Song_Counter++;
     /* array max, reset */
-	if(Song_Counter == Song_Length)
+	if(Song_Counter == SONG_LENGTH)
     {
 		Song_Counter = 0;
 	}
@@ -48,24 +50,13 @@ void MDAC_voidPlay(void)
 {
 	MSTK_voidSetCallBack(DAC_CALLBACK);
     /* Signal output every 125uS call voidSetDAC function */
-	MSTK_voidStart(125);
+	MSTK_voidStart(TIME_PER_SAMPLE);
 }
 
-/* int main()
+void MDAC_voidChangeFreq(u8 Copy_u8Time)
 {
-    // HSE, 8MHz 
-    MRCC_voidInit();
-    // Enable GPIOA CLK 
-    MRCC_voidEnablePeripheral(RCC_APB2, GPIOA);
-    
-    MGPIO_voidSetPortDirection(GPIOA, 0b0010);
+	MSTK_voidSetCallBack(DAC_CALLBACK);
+	    /* Signal output every 125uS call voidSetDAC function */
+	MSTK_voidStart(Copy_u8Time);
+}
 
-    MSTK_voidInit();
-    
-    MSTK_voidSetIntervalPeriodic(125, voidSetDAC);
-    while(1)
-    {
-
-    }
-    return 0;
-}*/
