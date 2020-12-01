@@ -12,6 +12,6 @@ void MDAC_voidInit(void);
 
 void MDAC_voidPlay(void);
 
-
+void MDAC_voidChangeFreq(u8 Copy_u8Time);
 
 #endif
