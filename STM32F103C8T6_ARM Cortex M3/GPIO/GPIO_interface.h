@@ -1,7 +1,7 @@
 /****************************************************************************/
 /* Author : AbdElrahman I.Zaki                                              */
 /* Date   : 10 August 2020                                                  */
-/* Version: V03                                                             */
+/* Version: V02                                                             */
 /* Desc.  : STM32F103C8T6 ARM Cortex M3 GPIO Prototypes of Public Functions */
 /****************************************************************************/
 
@@ -97,10 +97,10 @@ void MGPIO_voidTogglePinValue (GPIO_Port_ID Copy_PORT , GPIO_Pin_No Copy_PIN);
 void MGPIO_voidSetPortMode(GPIO_Port_ID Copy_PORT , u8 Copy_u8MODE);
 
 /* ----- Function that Set direction of all port pins ----- */
-void MGPIO_VoidSetPortDirection(GPIO_Port_ID Copy_PORT , u8 Copy_u8Position , u8 Copy_u8MODE);
+void MGPIO_voidSetPortDirection(GPIO_Port_ID Copy_PORT , u8 Copy_u8Position , u8 Copy_u8MODE);
 
 /* ----- Function that Set value of all port pins ----- */
-void MGPIO_voidSetPortValue(GPIO_Port_ID Copy_PORT , u8 Copy_u8Value);
+void MGPIO_voidSetPortValue(GPIO_Port_ID Copy_u8Port , u8 Copy_u8Position , u16 Copy_u8Value);
 
 /* ----- Function that get value of all port pins ----- */
 u16 MGPIO_u16GetPortValue(GPIO_Port_ID Copy_PORT , u8 Copy_u8Position );
