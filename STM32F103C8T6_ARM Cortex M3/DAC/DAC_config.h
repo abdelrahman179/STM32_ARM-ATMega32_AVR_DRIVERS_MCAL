@@ -13,7 +13,8 @@
 
 #define DAC_PORT_LH     LOW
 
+#define TIME_PER_SAMPLE		125
 
-
+#define SONG_LENGTH		39846
 
 #endif
